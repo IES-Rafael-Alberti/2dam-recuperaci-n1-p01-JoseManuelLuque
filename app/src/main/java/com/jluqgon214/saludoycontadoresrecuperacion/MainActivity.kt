@@ -27,6 +27,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -47,81 +48,6 @@ class MainActivity : ComponentActivity() {
                     Saludar()
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun Saludar() {
-    var showDialog by rememberSaveable {
-        mutableStateOf(false)
-    }
-    var buttonText by rememberSaveable {
-        mutableStateOf("Saludar")
-    }
-    var name by rememberSaveable {
-        mutableStateOf("")
-    }
-    var acceptCounter by rememberSaveable {
-        mutableStateOf(0)
-    }
-    var cancelCounter by rememberSaveable {
-        mutableStateOf(0)
-    }
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        if (name != ""){
-            Text(text = "Hola, ${name}")
-        }
-        if (showDialog == true) {
-            AlertDialog(
-                onDismissRequest = {showDialog = false},
-                modifier = Modifier.fillMaxSize().padding(top = 15.dp, bottom = 20.dp)) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = "Configuración", fontSize = 20.sp,
-                        textAlign = TextAlign.End,
-                        modifier = Modifier.fillMaxWidth(),)
-
-                    Spacer(modifier = Modifier.size(20.dp))
-
-                    TextField(value = name, onValueChange = { name = it })
-
-                    Spacer(modifier = Modifier.size(20.dp))
-
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Button(onClick = {
-                            showDialog = false
-                            acceptCounter += 1
-                            buttonText = "A${acceptCounter} C${cancelCounter}"
-                        }) {
-                            Text(text = "Aceptar")
-                        }
-                        Button(onClick = { name = "" }){
-                            Text(text = "Limpiar")
-                        }
-                        Button(onClick = {
-                            showDialog = false
-                            cancelCounter += 1
-                            buttonText = "A${acceptCounter} C${cancelCounter}"
-                        }) {
-                            Text(text = "Cancelar")
-                        }
-                    }
-                }
-            }
-        }
-        Button(onClick = { showDialog = true }) {
-            Text(text = buttonText)
         }
     }
 }
